@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ThutoriumApplicationTests {
 
   @Autowired private SampleController sampleController;
-
   @Test
   void contextLoads() throws Exception {
     assertThat(sampleController).isNotNull();
