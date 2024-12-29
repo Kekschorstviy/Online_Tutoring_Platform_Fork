@@ -68,8 +68,6 @@ public class SecurityConfig {
     return http.build();
   }
 
-
-
   /**
    * Configures Cross-Origin Resource Sharing (CORS) settings for the application, allowing specific
    * origins, HTTP methods, and headers to be used in cross-origin requests.
@@ -116,7 +114,7 @@ public class SecurityConfig {
     source.registerCorsConfiguration("/v3/api-docs/**", swaggerConfiguration);
     source.registerCorsConfiguration("/v3/api-docs.yaml", swaggerConfiguration);
 
-    //chat
+    // chat
     CorsConfiguration chatCorsConfig = new CorsConfiguration();
     chatCorsConfig.setAllowedOrigins(List.of("*"));
     chatCorsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
@@ -129,14 +127,14 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain websocketSecurity(HttpSecurity http) throws Exception {
-    http
-            .securityMatcher("/chat/**")  // Apply only to WebSocket paths
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/chat/**").permitAll())
-            .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for WebSockets
-            .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));  // Updated way to disable frame options
+    http.securityMatcher("/chat/**") // Apply only to WebSocket paths
+        .authorizeHttpRequests(auth -> auth.requestMatchers("/chat/**").permitAll())
+        .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for WebSockets
+        .headers(
+            headers ->
+                headers.frameOptions(
+                    HeadersConfigurer.FrameOptionsConfig
+                        ::disable)); // Updated way to disable frame options
     return http.build();
   }
-
-
 }
